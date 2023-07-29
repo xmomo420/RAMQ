@@ -20,6 +20,7 @@ public class Dossier {
 
     @Id
     private String noAssuranceMaladie;
+    private Patient patient;
     private Antecedant[] antecedants;
     private Visite[] visites;
 

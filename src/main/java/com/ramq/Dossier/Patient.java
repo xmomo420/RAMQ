@@ -11,6 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
 public class Patient extends Utilisateur {
     private Genre genre;
     private String villeNaissance;
