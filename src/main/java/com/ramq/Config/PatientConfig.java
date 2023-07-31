@@ -13,7 +13,7 @@ import java.util.List;
 @Configuration
 public class PatientConfig {
 
-
+    /*
     @Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository) {
 
@@ -26,5 +26,5 @@ public class PatientConfig {
             patientRepository.save(patient);
 
         };
-    }
+    }*/
 }

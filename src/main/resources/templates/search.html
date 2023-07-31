@@ -82,5 +82,9 @@
 <div th:if="${errorMessage}">
     <p th:text="${errorMessage}" style="color: red;"></p>
 </div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>
