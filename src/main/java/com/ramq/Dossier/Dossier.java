@@ -5,6 +5,7 @@ import com.ramq.Converters.Antecedant.AntecedantListConverter;
 import com.ramq.Converters.EtablissementConverter;
 import com.ramq.Converters.MedecinConverter;
 import com.ramq.Converters.Visite.VisiteListConverter;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,8 +25,10 @@ public class Dossier {
     @Id
     private String noAssuranceMaladie;
     @Convert(converter = AntecedantListConverter.class)
+    @Column(length = 512) // Augmenter la limite de caractères à 512
     private List<Antecedant> antecedants;
     @Convert(converter = VisiteListConverter.class)
+    @Column(length = 512) // Augmenter la limite de caractères à 512
     private List<Visite> visites;
 
     @Getter

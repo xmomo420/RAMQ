@@ -26,7 +26,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/medecin").hasRole(Utilisateur.Role.MEDECIN.name())
+                        .requestMatchers("/medecin", "/search").hasRole(Utilisateur.Role.MEDECIN.name())
                         .requestMatchers("/patient").hasRole(Utilisateur.Role.PATIENT.name())
                         .anyRequest().authenticated()
                 )

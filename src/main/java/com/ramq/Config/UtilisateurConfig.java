@@ -1,14 +1,12 @@
 package com.ramq.Config;
 
-import com.ramq.Dossier.Medecin;
-import com.ramq.Dossier.Patient;
-import com.ramq.Dossier.Utilisateur;
+import com.ramq.Dossier.*;
+import com.ramq.Repository.DossierRepository;
 import com.ramq.Repository.MedecinRepository;
 import com.ramq.Repository.PatientRepository;
 import com.ramq.Repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -23,35 +21,24 @@ public class UtilisateurConfig
     private final UtilisateurRepository utilisateurRepository;
     private final PatientRepository patientRepository;
 
+    private final DossierRepository dossierRepository;
+
     @Autowired
-    public UtilisateurConfig(MedecinRepository medecinRepository, UtilisateurRepository utilisateurRepository, PatientRepository patientRepository) {
+    public UtilisateurConfig(MedecinRepository medecinRepository, UtilisateurRepository utilisateurRepository, PatientRepository patientRepository, DossierRepository dossierRepository) {
         this.medecinRepository = medecinRepository;
         this.utilisateurRepository = utilisateurRepository;
         this.patientRepository = patientRepository;
+        this.dossierRepository = dossierRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        List<Medecin> medecins = medecinRepository.findAll();
         List<Patient> patients = patientRepository.findAll();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        for (Medecin medecin : medecins) {
-            String motDePasse = passwordEncoder.encode(generateRandomPassword(10));
-            Utilisateur utilisateur = new Utilisateur(medecin.getNoPermisMedical(), motDePasse, Utilisateur.Role.MEDECIN);
-            utilisateurRepository.save(utilisateur);
+        for (Patient patient:patients) {
+            Dossier dossier = DossierFactory.createRandomDossier();
+            dossier.setNoAssuranceMaladie(patient.getNoAssuranceMaladie());
+            dossierRepository.save(dossier);
         }
-
-        for (Patient patient : patients) {
-            String motDePasse = passwordEncoder.encode(generateRandomPassword(10));
-            Utilisateur utilisateur = new Utilisateur(patient.getNoAssuranceMaladie(), motDePasse, Utilisateur.Role.PATIENT);
-            utilisateurRepository.save(utilisateur);
-        }
-
-        Utilisateur userAdminPatient = new Utilisateur("BOUM14061999", passwordEncoder.encode("abc123"), Utilisateur.Role.PATIENT);
-        utilisateurRepository.save(userAdminPatient);
-        Utilisateur userAdminMEDECIN = new Utilisateur("CHAG19021998", passwordEncoder.encode("123abc"), Utilisateur.Role.MEDECIN);
-        utilisateurRepository.save(userAdminMEDECIN);
     }
 
     private String generateRandomPassword(int length) {

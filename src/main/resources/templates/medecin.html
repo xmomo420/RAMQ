@@ -6,6 +6,13 @@
     <link rel="stylesheet" type="text/css" href="medecin.css">
 </head>
 <body>
-    <h1>PAGE MEDECIN</h1>
+<h1>PAGE MEDECIN</h1>
+<div>
+    <form th:action="@{/search}" method="post">
+        <label for="noAssuranceMaladie">Numéro d'assurance maladie :</label>
+        <input type="text" id="noAssuranceMaladie" name="noAssuranceMaladie" required>
+        <button type="submit">Rechercher</button>
+    </form>
+</div>
 </body>
 </html>

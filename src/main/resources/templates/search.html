@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats de la recherche</title>
+    <link rel="stylesheet" type="text/css" href="dossier.css">
+</head>
+<body>
+<h1>Résultats de la recherche</h1>
+
+<div th:if="${dossier}">
+    <h2>Informations du dossier</h2>
+    <!-- Ajoutez cette section pour afficher les informations du patient -->
+    <div th:if="${patient}">
+        <p>Numéro d'assurance maladie : <span th:text="${patient.noAssuranceMaladie}"></span></p>
+        <p>Prénom : <span th:text="${patient.prenom}"></span></p>
+        <p>Nom : <span th:text="${patient.nom}"></span></p>
+        <!-- Ajoutez d'autres informations du patient ici si nécessaire -->
+        <p>Genre : <span th:text="${patient.genre}"></span></p>
+        <p>Ville de naissance : <span th:text="${patient.villeNaissance}"></span></p>
+        <!-- Affichez les coordonnées du patient -->
+        <h3>Coordonnées du patient</h3>
+        <p>Téléphone : <span th:text="${patient.coordonneesPatient.noTelephone}"></span></p>
+        <p>Courriel : <span th:text="${patient.coordonneesPatient.courriel}"></span></p>
+        <p>Rue : <span th:text="${patient.coordonneesPatient.adresse.rue}"></span></p>
+        <p>Ville : <span th:text="${patient.coordonneesPatient.adresse.ville}"></span></p>
+        <p>Province : <span th:text="${patient.coordonneesPatient.adresse.province}"></span></p>
+        <p>Code postal : <span th:text="${patient.coordonneesPatient.adresse.codePostal}"></span></p>
+
+        <!-- Affichez les informations de la mère du patient -->
+        <h3>Mère</h3>
+        <ul>
+            <li th:each="mere : ${patient.mere}">
+                <p>Prénom de la mère : <span th:text="${mere.prenomParent}"></span></p>
+                <p>Nom de la mère : <span th:text="${mere.nomParent}"></span></p>
+                <p>Est biologique : <span th:text="${mere.estBiologique}"></span></p>
+            </li>
+        </ul>
+
+        <!-- Affichez les informations du père du patient -->
+        <h3>Père</h3>
+        <ul>
+            <li th:each="pere : ${patient.pere}">
+                <p>Prénom du père : <span th:text="${pere.prenomParent}"></span></p>
+                <p>Nom du père : <span th:text="${pere.nomParent}"></span></p>
+                <p>Est biologique : <span th:text="${pere.estBiologique}"></span></p>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+    <h3>Antécédants</h3>
+    <ul>
+        <li th:each="antecedant : ${dossier.antecedants}">
+            <p>Diagnostic : <span th:text="${antecedant.diagnostic}"></span></p>
+            <p>Traitement : <span th:text="${antecedant.traitement}"></span></p>
+            <p>Début maladie : <span th:text="${antecedant.debutMaladie}"></span></p>
+            <p>Fin maladie : <span th:text="${antecedant.finMaladie}"></span></p>
+            <p>Médecin traitant : <span th:text="${antecedant.medecinTraitant}"></span></p>
+        </li>
+    </ul>
+
+    <h3>Visites</h3>
+    <ul>
+        <li th:each="visite : ${dossier.visites}">
+            <p>Établissement : <span th:text="${visite.etablissement}"></span></p>
+            <p>Médecin visite : <span th:text="${visite.medecinVisite}"></span></p>
+            <p>Date visite : <span th:text="${visite.dateVisite}"></span></p>
+            <p>Diagnostic visite : <span th:text="${visite.diagnosticVisite}"></span></p>
+            <p>Traitement visite : <span th:text="${visite.traitementVisite}"></span></p>
+            <p>Résumé visite : <span th:text="${visite.resumeeVisite}"></span></p>
+            <ul>
+                <li th:each="note : ${visite.notes}">
+                    <p>Note : <span th:text="${note}"></span></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div th:if="${errorMessage}">
+    <p th:text="${errorMessage}" style="color: red;"></p>
+</div>
+</body>
+</html>

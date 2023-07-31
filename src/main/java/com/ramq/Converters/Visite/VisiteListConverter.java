@@ -31,7 +31,6 @@ public class VisiteListConverter implements AttributeConverter<List<Dossier.Visi
     @Override
     public List<Dossier.Visite> convertToEntityAttribute(String s) {
         String [] arrayVisite = Dossier.extraireDonnees(s,"; ");
-        System.out.println(Arrays.toString(arrayVisite));
         VisiteConverter visiteConverter = new VisiteConverter();
         return Arrays.stream(arrayVisite).map(visiteConverter::convertToEntityAttribute).toList();
     }

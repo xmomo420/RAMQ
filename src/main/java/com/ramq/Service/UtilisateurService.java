@@ -3,6 +3,8 @@ package com.ramq.Service;
 import com.ramq.Dossier.Utilisateur;
 import com.ramq.Repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,11 @@ public class UtilisateurService implements UserDetailsService {
 
     public void creerUtilisateur(Utilisateur utilisateur) {
         utilisateurRepository.save(utilisateur);
+    }
+
+    public Utilisateur getLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return (Utilisateur) auth.getPrincipal();
     }
 
     @Override
