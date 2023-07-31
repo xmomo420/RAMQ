@@ -1,14 +1,17 @@
 package com.ramq.Dossier;
 
-import jakarta.persistence.Embeddable;
+import com.ramq.Converters.AdresseConverter;
+import com.ramq.Converters.Antecedant.AntecedantListConverter;
+import com.ramq.Converters.EtablissementConverter;
+import com.ramq.Converters.MedecinConverter;
+import com.ramq.Converters.Visite.VisiteListConverter;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -20,10 +23,11 @@ public class Dossier {
 
     @Id
     private String noAssuranceMaladie;
-    private Antecedant[] antecedants;
-    private Visite[] visites;
+    @Convert(converter = AntecedantListConverter.class)
+    private List<Antecedant> antecedants;
+    @Convert(converter = VisiteListConverter.class)
+    private List<Visite> visites;
 
-    @Embeddable
     @Getter
     @Setter
     @AllArgsConstructor
@@ -31,33 +35,57 @@ public class Dossier {
     public static class Antecedant {
         private String diagnostic;
         private String traitement;
+        @Convert(converter = MedecinConverter.class)
         private Medecin medecinTraitant;
         private LocalDate debutMaladie;
         private LocalDate finMaladie;
+
+        @Override
+        public String toString() {
+            return  "{" + diagnostic + ", " + traitement + ", " + debutMaladie + ", " + finMaladie +
+                    ", " + medecinTraitant + ";";
+        }
     }
 
-    @Embeddable
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
     @Setter
     public static class Visite {
+        @Override
+        public String toString() {
+            return "{" + etablissement + ", " + medecinVisite + ", " + dateVisite +
+                    ", " + diagnosticVisite + ", " + traitementVisite +  ", " +
+                     resumeeVisite + ", " + notes + "}";
+        }
+
+        @Convert(converter = EtablissementConverter.class)
         private Etablissement etablissement;
-        private Medecin medecin;
+        @Convert(converter = MedecinConverter.class)
+        private Medecin medecinVisite;
         private LocalDate dateVisite;
         private String diagnosticVisite;
         private String traitementVisite;
         private String resumeeVisite;
-        private String[] notes;
+        private List<String> notes;
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    @Embeddable
     public static class Etablissement {
-        private String nom;
-        private Coordonnees.Adresse adresse;
+        @Override
+        public String toString() {
+            return "{" + nomEtablissement + ", " + adresseEtablissement + "}";
+        }
+
+        private String nomEtablissement;
+        @Convert(converter = AdresseConverter.class)
+        private Coordonnees.Adresse adresseEtablissement;
+    }
+
+    public static String [] extraireDonnees(String string, String separator) {
+        return string.split(separator);
     }
 }

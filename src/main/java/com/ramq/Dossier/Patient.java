@@ -1,5 +1,8 @@
 package com.ramq.Dossier;
 
+import com.ramq.Converters.CoordonneesConverter;
+import com.ramq.Converters.Parent.ParentListConverter;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +14,24 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Patient extends Utilisateur {
+@Entity
+public class Patient {
 
+    @Id
+    private String noAssuranceMaladie;
+    private String prenom;
+    private String nom;
+    @Enumerated(EnumType.STRING)
     private Genre genre;
     private String villeNaissance;
-    private Coordonnees coordonnees;
+    @Convert(converter = CoordonneesConverter.class)
+    private Coordonnees coordonneesPatient;
+    @Convert(converter = ParentListConverter.class)
     private List<Parent> mere;
+    @Convert(converter = ParentListConverter.class)
     private List<Parent> pere;
 
-    private enum Genre {
+    public enum Genre {
         HOMME,
         FEMME,
         NON_BINAIRE
@@ -29,9 +41,14 @@ public class Patient extends Utilisateur {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    private class Parent {
-        private String prenom;
-        private String nom;
+    public static class Parent {
+        private String prenomParent;
+        private String nomParent;
         private boolean estBiologique;
+
+        @Override
+        public String toString() {
+            return "{" + prenomParent + ", " + nomParent + ", " + estBiologique + "}";
+        }
     }
 }

@@ -1,15 +1,11 @@
 package com.ramq.Dossier;
 
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @Setter
-@Embeddable
 @NoArgsConstructor
 public class Coordonnees {
 
@@ -17,7 +13,12 @@ public class Coordonnees {
     private String courriel;
     private Adresse adresse;
 
-    private enum Provinces {
+    @Override
+    public String toString() {
+        return "{" + noTelephone + ", " + courriel + ", " + adresse + "}";
+    }
+
+    public enum Provinces {
         ONTARIO,
         QUEBEC,
         ALBERTA,
@@ -33,7 +34,6 @@ public class Coordonnees {
     @AllArgsConstructor
     @Getter
     @Setter
-    @Embeddable
     @NoArgsConstructor
     public static class Adresse {
         private String rue;
@@ -41,5 +41,10 @@ public class Coordonnees {
         private Provinces province;
         private String codePostal;
 
+        @Override
+        public String toString() {
+            return "{" +
+                     rue + ", " + ville + ", " + province + ", " + codePostal + "}";
+        }
     }
 }
