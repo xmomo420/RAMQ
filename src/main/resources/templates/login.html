@@ -62,11 +62,38 @@
             cursor: pointer;
             font-weight: bold;
         }
+
+        h1 {
+            color: #4CAF50; /* Couleur du titre h1 (vert foncé) */
+            font-size: 36px; /* Taille de la police du titre h1 (36 pixels) */
+            font-weight: bold; /* Police en gras pour le titre h1 */
+            /* Autres styles pour le titre h1 si nécessaire */
+        }
+
+        h2 {
+            color: #6ca6c0; /* Couleur du titre h2 (bleu pâle) */
+            font-size: 24px; /* Taille de la police du titre h2 (24 pixels) */
+            font-weight: bold; /* Police normale pour le titre h2 */
+            /* Autres styles pour le titre h2 si nécessaire */
+        }
+
+        form label[title]::after {
+            content: attr(title);
+            margin-left: 5px;
+            display: inline-block;
+            font-size: 12px;
+            color: #999;
+        }
+
     </style>
 </head>
 
 <body>
 <div class="login-container">
+
+<h1> Bienvenu !</h1>
+<h2>Authentification</h2>
+
 <div style="color: red; font-size: 18px; text-align: center; margin-bottom: 20px;"
      th:if="${param.error}">
     Combinaison invalide.
@@ -76,8 +103,11 @@
      th:if="${param.logout}">
     Vous avez été déconnecté.
 </div>
+
 <form th:action="@{/login}" method="post">
-    <div><label> Identifiant : <input type="text" name="username"/> </label></div>
+    <div><label title="Si vous êtes médecin, inscrivez votre numéro de permis médical dans ce champ,
+     si vous êtes un patient, inscrivez votre numéro d'assurance maladie pour accéder à votre dossier.">
+        Identifiant : <input type="text" name="username"/> </label></div>
     <div><label> Mot de passe : <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>

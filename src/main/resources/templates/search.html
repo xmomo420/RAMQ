@@ -61,7 +61,7 @@
         }
 
         /* Styles pour le bouton "Sign Out" */
-        form input[type="submit"] {
+        #signOut {
             background-color: #b80f0f;
             color: #fff;
             border: none;
@@ -71,6 +71,19 @@
             font-weight: bold;
             margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
             margin-right: auto;
+        }
+
+        /* Styles pour le bouton "Rechercher Patient" */
+        #autre {
+            background-color: #30b600;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
+            margin-left: 195%;
         }
 
         /* Styles pour le bouton "Modifier" et "Sauvegarder" */
@@ -83,13 +96,32 @@
             cursor: pointer;
             font-weight: bold;
             margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
-            margin-left: auto;
+            margin-left: 0;
             transition: background-color 0.2s; /* Ajout d'une transition de couleur de fond */
         }
 
         .blueBtn {
             background-color: #6ca6c0; /* Couleur de fond bleu pâle plus foncée au survol */
         }
+
+        .piedPage {
+            text-align: center;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+
+        .piedPage ul {
+            display: flex;
+
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .piedPage ul li {
+            border: none;
+        }
+
     </style>
 </head>
 <body>
@@ -167,10 +199,22 @@
     <div th:if="${errorMessage}">
         <p th:text="${errorMessage}" style="color: red;"></p>
     </div>
+    <div class="piedPage">
+        <ul>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <input id="signOut" type="submit" value="Sign Out"/>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/medecin}">
+                    <input id="autre" type="submit" value="Rechercher un autre patient"/>
+                </form>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<form id="signOut" th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+
 </body>
 </html>
