@@ -3,9 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Erreur</title>
+    <style>
+        /* Styles pour le corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Styles pour le conteneur de l'erreur */
+        .error-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        /* Styles pour le titre */
+        h1 {
+            color: #b80f0f;
+            margin-bottom: 20px;
+        }
+
+        /* Styles pour les paragraphes */
+        p {
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour le bouton */
+        button {
+            background-color: #30b600;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Styles pour le lien du bouton */
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-<h1>ERREUR</h1>
-<p>Lien vers d'autres pages</p>
+<div class="error-container">
+<h1>Une erreur est survenu...</h1>
+<p>Peut-être que vous avez tenté d'accéder vers une page dont vous n'avez pas encore accès</p>
+<p>Veuillez retourner à la page précédente ou vous reconnecter</p>
+<a th:href="@{/login}">
+    <button type="button">Retour à la page d'authentification</button>
+</a>
+</div>
 </body>
 </html>
