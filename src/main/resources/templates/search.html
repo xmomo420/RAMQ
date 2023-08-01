@@ -3,12 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Résultats de la recherche</title>
-    <link rel="stylesheet" type="text/css" href="dossier.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 20px; /* Ajout d'un padding pour créer de l'espace autour du contenu */
+        }
+
+        /* Styles pour le conteneur du contenu */
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px; /* Augmentation de la largeur maximale */
+            margin: 0 auto; /* Centrage du conteneur sur la page */
+        }
+
+        /* Styles pour le titre de la page */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        /* Styles pour les sections de la page */
+        h2 {
+            color: #4CAF50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        /* Styles pour les sous-titres de la page */
+        h3 {
+            color: #4CAF50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour les informations du patient */
+        p {
+            margin-bottom: 5px;
+        }
+
+        /* Styles pour les bordures des sections */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour le bouton "Sign Out" */
+        form input[type="submit"] {
+            background-color: #b80f0f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
+            margin-right: auto;
+        }
+
+        /* Styles pour le bouton "Modifier" et "Sauvegarder" */
+        .blueBtn {
+            background-color: #7db7d9; /* Couleur de fond bleu pâle */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
+            margin-left: auto;
+            transition: background-color 0.2s; /* Ajout d'une transition de couleur de fond */
+        }
+
+        .blueBtn {
+            background-color: #6ca6c0; /* Couleur de fond bleu pâle plus foncée au survol */
+        }
+    </style>
 </head>
 <body>
 <h1>Résultats de la recherche</h1>
 
-<div th:if="${dossier}">
+<div class="container" th:if="${dossier}">
     <h2>Informations du dossier</h2>
     <!-- Ajoutez cette section pour afficher les informations du patient -->
     <div th:if="${patient}">
@@ -48,7 +135,7 @@
         </ul>
     </div>
 
-</div>
+
 
     <h3>Antécédants</h3>
     <ul>
@@ -77,13 +164,12 @@
             </ul>
         </li>
     </ul>
+    <div th:if="${errorMessage}">
+        <p th:text="${errorMessage}" style="color: red;"></p>
+    </div>
 </div>
 
-<div th:if="${errorMessage}">
-    <p th:text="${errorMessage}" style="color: red;"></p>
-</div>
-
-<form th:action="@{/logout}" method="post">
+<form id="signOut" th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
 </body>

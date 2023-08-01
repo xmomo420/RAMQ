@@ -3,11 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <title>Patient</title>
-    <link rel="stylesheet" type="text/css" href="patient.css">
+    <style>
+        /* Styles pour le corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 20px; /* Ajout d'un padding pour créer de l'espace autour du contenu */
+        }
+
+        /* Styles pour le conteneur du contenu */
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px; /* Augmentation de la largeur maximale */
+            margin: 0 auto; /* Centrage du conteneur sur la page */
+        }
+
+        /* Styles pour le titre de la page */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        /* Styles pour les sections de la page */
+        h2 {
+            color: #4CAF50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        /* Styles pour les sous-titres de la page */
+        h3 {
+            color: #4CAF50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour les informations du patient */
+        p {
+            margin-bottom: 5px;
+        }
+
+        /* Styles pour les bordures des sections */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour le bouton "Sign Out" */
+        form input[type="submit"] {
+            background-color: #b80f0f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
+            margin-left: auto;
+        }
+
+        /* Styles pour le bouton "Modifier" et "Sauvegarder" */
+        .blueBtn {
+            background-color: #7db7d9; /* Couleur de fond bleu pâle */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px; /* Espace entre le bouton et le reste du contenu */
+            margin-left: auto;
+            transition: background-color 0.2s; /* Ajout d'une transition de couleur de fond */
+        }
+
+        .blueBtn {
+            background-color: #6ca6c0; /* Couleur de fond bleu pâle plus foncée au survol */
+        }
+
+
+    </style>
 </head>
 <body>
-<h1>PAGE PATIENT</h1>
-<div th:if="${patient}">
+
+<div class="container" th:if="${patient}">
+    <h1>Page patient</h1>
     <h2>Informations du patient</h2>
     <p>Numéro d'assurance maladie : <span th:text="${patient.noAssuranceMaladie}"></span></p>
     <p>Prénom : <span th:text="${patient.prenom}"></span></p>
@@ -33,10 +124,10 @@
         <p id="ville">Ville : <input type="text" name="coordonneesPatient.adresse.ville" th:value="${patient.coordonneesPatient.adresse.ville}" style="display: none;"></p>
         <p id="province">Province : <input type="text" name="coordonneesPatient.adresse.province" th:value="${patient.coordonneesPatient.adresse.province}" style="display: none;"></p>
         <p id="codePostal">Code postal : <input type="text" name="coordonneesPatient.adresse.codePostal" th:value="${patient.coordonneesPatient.adresse.codePostal}" style="display: none;"></p>
-        <button type="submit">Sauvegarder</button>
+        <button class="blueBtn" type="submit">Sauvegarder</button>
     </form>
 
-    <button id="btnModifier" onclick="afficherFormulaire()">Modifier</button>
+    <button class="blueBtn" id="btnModifier" onclick="afficherFormulaire()">Modifier</button>
 
     <script>
         function afficherFormulaire() {
@@ -67,11 +158,10 @@
             <p>Est biologique : <span th:text="${mere.estBiologique}"></span></p>
         </li>
     </ul>
-</div>
+
 
 <div th:if="${dossier}">
     <h2>Informations du dossier</h2>
-    <p>Numéro d'assurance maladie : <span th:text="${dossier.noAssuranceMaladie}"></span></p>
 
     <h3>Antécédants</h3>
     <ul>
@@ -100,6 +190,8 @@
             </ul>
         </li>
     </ul>
+</div>
+
 </div>
 
 <div th:if="${errorMessage}">

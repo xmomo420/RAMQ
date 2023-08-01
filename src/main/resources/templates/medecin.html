@@ -3,20 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>Medecin</title>
-    <link rel="stylesheet" type="text/css" href="medecin.css">
+    <style>
+
+        /* Styles pour le corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Styles pour le conteneur du formulaire et messages */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        /* Styles pour le titre */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        /* Styles pour les div contenant les labels et les champs de saisie */
+        form div {
+            margin-bottom: 20px;
+        }
+
+        /* Styles pour les labels */
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Styles pour les champs de saisie */
+        form input[type="text"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Styles pour le bouton "Rechercher" */
+        form button[type="submit"] {
+            margin-top: 20px;
+            background-color: #30b600;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto; /* Centrer le bouton "Rechercher" */
+            display: block; /* Ajouter cette ligne pour que le bouton occupe toute la largeur */
+        }
+
+        /* Styles pour le bouton "Sign Out" */
+        form input[type="submit"] {
+            background-color: #b80f0f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-left: auto;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>PAGE MEDECIN</h1>
-<div>
+
+<div class="login-container">
+    <h1>Page Medecin</h1>
+    <div th:if="${errorMessage}" style="color: red; text-align: center">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <form th:action="@{/search}" method="post">
         <label for="noAssuranceMaladie">Numéro d'assurance maladie :</label>
         <input type="text" id="noAssuranceMaladie" name="noAssuranceMaladie" required>
         <button type="submit">Rechercher</button>
     </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
 </div>
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+
 </body>
 </html>

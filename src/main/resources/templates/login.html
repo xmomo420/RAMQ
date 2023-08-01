@@ -2,12 +2,78 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="fr">
 <head>
     <title>Authentification</title>
+    <style>
+        /* Styles pour le corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Styles pour le conteneur du formulaire et messages */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Styles pour le conteneur du formulaire */
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Styles pour les div contenant les labels et les champs de saisie */
+        form div {
+            margin-bottom: 20px;
+        }
+
+        /* Styles pour les labels */
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Styles pour les champs de saisie */
+        form input[type="text"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Styles pour le bouton de soumission */
+        form input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-<div th:if="${param.error}">
+<div class="login-container">
+<div style="color: red; font-size: 18px; text-align: center; margin-bottom: 20px;"
+     th:if="${param.error}">
     Combinaison invalide.
 </div>
-<div th:if="${param.logout}">
+<div style="color: green;
+            font-size: 18px; text-align: center; margin-bottom: 20px;"
+     th:if="${param.logout}">
     Vous avez été déconnecté.
 </div>
 <form th:action="@{/login}" method="post">
@@ -15,5 +81,6 @@
     <div><label> Mot de passe : <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
+</div>
 </body>
 </html>

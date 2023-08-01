@@ -28,29 +28,19 @@ public class SearchController {
     @PostMapping("/search")
     public String searchPatient(@RequestParam("noAssuranceMaladie") String noAssuranceMaladie, Model model) {
         // Recherche du dossier patient par numéro d'assurance maladie dans la base de données
-        Dossier dossier = dossierRepository.findById(noAssuranceMaladie)
-                .orElseThrow(() -> new UsernameNotFoundException("Aucun dossier ne correspond à ce numéro d'assurance maladie : " + noAssuranceMaladie));
-        Patient patient = patientRepository.findById(noAssuranceMaladie)
-                .orElseThrow(() -> new UsernameNotFoundException("Aucun patient avec ce numéro d'assurance : " + noAssuranceMaladie));
+        Dossier dossier = dossierRepository.findById(noAssuranceMaladie).orElse(null);
+        Patient patient = patientRepository.findById(noAssuranceMaladie).orElse(null);
 
-        if (dossier != null) {
+        if (dossier != null && patient != null) {
             // Dossier patient trouvé, ajout du dossier au modèle pour l'affichage dans la vue
             model.addAttribute("dossier", dossier);
+            model.addAttribute("patient", patient);
+            return "search"; // Correspond à la page où le résultat de la recherche est affiché
         } else {
             // Dossier patient non trouvé, ajout d'un message d'erreur au modèle pour l'affichage dans la vue
             model.addAttribute("errorMessage", "Dossier non trouvé pour le numéro d'assurance maladie saisi.");
+            return "medecin"; // Redirige vers la vue medecin.html pour que le medecin puisse effectuer une autre recherche
         }
-        if (patient != null) {
-            // Patient trouvé, ajout du patient au modèle pour l'affichage dans la vue
-            model.addAttribute("patient", patient);
-        } else {
-            // Patient non trouvé, ajout d'un message d'erreur au modèle pour l'affichage dans la vue
-            model.addAttribute("errorMessage", "Patient non trouvé pour le numéro d'assurance maladie saisi.");
-        }
-
-        return "search"; // Redirige vers la vue search.html après le traitement de la recherche
     }
-
-
 }
 
