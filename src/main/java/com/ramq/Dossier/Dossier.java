@@ -25,10 +25,10 @@ public class Dossier {
     @Id
     private String noAssuranceMaladie;
     @Convert(converter = AntecedantListConverter.class)
-    @Column(length = 512) // Augmenter la limite de caractères à 512
+    @Column(length = 1024) // Augmenter la limite de caractères à 1024
     private List<Antecedant> antecedants;
     @Convert(converter = VisiteListConverter.class)
-    @Column(length = 512) // Augmenter la limite de caractères à 512
+    @Column(length = 1024) // Augmenter la limite de caractères à 1024
     private List<Visite> visites;
 
     @Getter

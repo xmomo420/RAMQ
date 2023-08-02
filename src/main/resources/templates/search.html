@@ -167,7 +167,9 @@
         </ul>
     </div>
 
-
+    <div th:if="${succesAnt}">
+        <p th:text="${succesAnt}" style="color: #30b600;"></p>
+    </div>
 
     <h3>Antécédants</h3>
     <ul>
@@ -179,6 +181,29 @@
             <p>Médecin traitant : <span th:text="${antecedant.medecinTraitant}"></span></p>
         </li>
     </ul>
+
+    <!-- Formulaire pour ajouter une visite -->
+    <form id="formAjouterAnt" th:action="@{/ajouter-antecedant}" method="post" style="display: none;">
+        <div>
+            <input type="hidden" name="noAssuranceMaladie" th:value="${dossier.noAssuranceMaladie}">
+            <p id="diagnostic">Diagnostic : <input type="text" name="diagnostic"></p>
+            <p id="traitement">Traitement : <input type="text" name="traitement"></p>
+            <p id="debutMaladie">Date : <input type="date" name="debutMaladie"></p>
+            <p id="finMaladie">Date : <input type="date" name="finMaladie"></p>
+            <!-- Ajoutez les autres champs de saisie nécessaires pour la visite ici -->
+            <button class="blueBtn" type="submit">Sauvegarder</button> <!-- Bouton sauvegarder -->
+        </div>
+    </form>
+    <!-- Bouton pour afficher un formulaire pour ajouter une antécédant -->
+    <button class="blueBtn" id="btnAjouterAnt" onclick="afficherFormulaireAntecedant()">Ajouter</button>
+
+    <div th:if="${errorSaveAnt}">
+        <p th:text="${errorSaveAnt}" style="color: red;"></p>
+    </div>
+
+    <div th:if="${succesVisit}">
+        <p th:text="${succesVisit}" style="color: #30b600;"></p>
+    </div>
 
     <h3>Visites</h3>
     <ul>
@@ -196,6 +221,50 @@
             </ul>
         </li>
     </ul>
+
+    <!-- Formulaire pour ajouter une visite -->
+    <form id="formAjouterVis" th:action="@{/ajouter-visite}" method="post" style="display: none;">
+        <div>
+            <input type="hidden" name="noAssuranceMaladie" th:value="${dossier.noAssuranceMaladie}">
+            <p id="nomEtablissement">Nom établissement : <input type="text" name="nomEtablissement"></p>
+            <p>Adresse de l'établissement : </p>
+            <p id="rue">Rue : <input type="text" name="rue"></p>
+            <p id="ville">Ville : <input type="text" name="ville"></p>
+            <p id="province">Province : <input type="text" name="province"></p>
+            <p id="codePostal">Code postal : <input type="text" name="codePostal"></p>
+            <p id="dateVisite">Date : <input type="date" name="dateVisite"></p>
+            <p id="diagnosticVisite">Diagnostic : <input type="text" name="diagnostic"></p>
+            <p id="traitementVisite">Traitement : <input type="text" name="traitement"></p>
+            <p id="resume">Résumé : <input type="text" name="resume"></p>
+            <p id="notes">Notes : <input type="text" name="note"></p>
+            <!-- Ajoutez les autres champs de saisie nécessaires pour la visite ici -->
+            <button class="blueBtn" type="submit">Sauvegarder</button> <!-- Bouton sauvegarder -->
+        </div>
+    </form>
+        <!-- Script pour afficher les formulaires -->
+        <script>
+            function afficherFormulaireVisite() {
+                // Cacher le bouton "Modifier" après avoir cliqué
+                document.getElementById("btnAjouterVis").style.display = "none";
+                // Rendre le formulaire visible en modifiant le style "display" à "block"
+                document.getElementById("formAjouterVis").style.display = "block";
+            }
+
+            function afficherFormulaireAntecedant() {
+                // Cacher le bouton "Modifier" après avoir cliqué
+                document.getElementById("btnAjouterAnt").style.display = "none";
+                // Rendre le formulaire visible en modifiant le style "display" à "block"
+                document.getElementById("formAjouterAnt").style.display = "block";
+            }
+        </script>
+
+    <div th:if="${errorSaveVis}">
+        <p th:text="${errorSaveVis}" style="color: red;"></p>
+    </div>
+
+    <!-- Bouton pour afficher un formulaire pour ajouter une antécédant -->
+    <button class="blueBtn" id="btnAjouterVis" onclick="afficherFormulaireVisite()">Ajouter</button>
+
     <div th:if="${errorMessage}">
         <p th:text="${errorMessage}" style="color: red;"></p>
     </div>
